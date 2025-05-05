@@ -1,0 +1,18 @@
+version: '1'
+services:
+  microservicio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - spring.datasource.url=jdbc:oracle:thin:@bbddfs_tp?TNS_ADMIN=/app/wallet/
+      - spring.datasource.username=BBDD_SUM2_ENVIOS
+      - spring.datasource.password=BBDD_fullstack2025
+      - spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+    restart: always
+
+
+
+    
