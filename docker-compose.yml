@@ -1,4 +1,4 @@
-version: '1'
+version: '2'
 services:
   microservicio:
     build:
@@ -7,12 +7,17 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - spring.datasource.url=jdbc:oracle:thin:@bbddfs_tp?TNS_ADMIN=/app/wallet/
-      - spring.datasource.username=BBDD_SUM2_ENVIOS
-      - spring.datasource.password=BBDD_fullstack2025
-      - spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
-    restart: always
+      - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@bbddfs_tp?TNS_ADMIN=/app/wallet/
+      - SPRING_DATASOURCE_USERNAME=BBDD_SUM2_ENVIOS
+      - SPRING_DATASOURCE_PASSWORD=BBDD_fullstack2025
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=oracle.jdbc.driver.OracleDriver
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.OracleDialect
+      - SPRING_JPA_SHOW_SQL=true
+      - TNS_ADMIN=/app/wallet
+    networks:
+      - default
 
-
-
-    
+networks:
+  default:
+    driver: bridge

@@ -1,0 +1,6 @@
+com/example/gestionenvios/GestionenviosApplication.class
+com/example/gestionenvios/model/Envios.class
+com/example/gestionenvios/service/EnviosServiceImpl.class
+com/example/gestionenvios/controller/EnviosController.class
+com/example/gestionenvios/repository/EnviosRepository.class
+com/example/gestionenvios/service/EnviosService.class
