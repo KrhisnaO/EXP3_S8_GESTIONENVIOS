@@ -1,68 +1,80 @@
 # Microservicio de Seguimiento de Envios
 Este es un microservicio simple desarrollado con Spring Boot, que permite interactuar con una base de datos Oracle para gestionar información de seguimiento de envios.
 
-## Características
+## Características principales
 
-- Base de datos en **Oracle**.
-- **CRUD** de películas: almacenamiento y consulta de envios.
-- **Rutas REST** disponibles:
-  - `GET /envios/{nseguimiento}`: Obtiene los detalles de una envios por su ID.
-  - `GET /envios`: Obtiene la lista de todas los envios.
-  - `POST /envios`: Crea un nuevo envio.
-  - `PUT /envios/{nseguimiento}`: Actualiza los detalles de un envio por su ID.
-  - `DELETE /envios/{nseguimiento}`: Elimina un envio por su ID.
+✅ CRUD completo de usuarios  
+✅ Base de datos en **Oracle**  
+✅ API documentada con **HATEOAS** (hipervínculos en las respuestas)  
+✅ **2 pruebas unitarias** desarrolladas con **JUnit 5**  
+✅ Despliegue en **Docker** mediante **docker-compose** y ejecución en **Play With Docker**
 
-## Requisitos
+---
 
-- **Java 17** o superior.
-- **Spring Boot 2.x** o superior.
-- **Oracle Database** (con Wallet configurado).
-- **Maven** como gestor de dependencias.
+## Endpoints disponibles
 
-## Configuración de la Base de Datos
+| Método | Ruta                    | Descripción                     |
+|--------|------------------------|--------------------------------|
+| GET    | /envios/{nseguimiento}  | Obtiene los envíos por ID     |
+| GET    | /envios                 | Lista todos los envíos        |
+| POST   | /envios                 | Crea un nuevo envio           |
+| PUT    | /envios/{nseguimiento}  | Actualiza un envio existente  |
+| DELETE | /envios/{nseguimiento}  | Elimina un envio por ID       |
 
-### Configuración de Oracle Wallet
+> 📝 Las respuestas incluyen enlaces HATEOAS como `_links.self`, `_links.update`, etc.
 
-1. Descarga el Oracle Wallet desde la consola de Oracle Cloud.
-2. Coloca el archivo `tnsnames.ora` y las credenciales del Wallet en la carpeta especificada en la configuración de la base de datos, como se muestra a continuación:
-   
-   ```properties
-   spring.datasource.url=jdbc:oracle:thin:@bbddfs_tp?TNS_ADMIN=/path/to/Wallet
+## Pruebas unitarias
 
-### El microservicio estará disponible en http://localhost:8080.
+✔️ Se integró `spring-boot-starter-test` en el proyecto.  
+✔️ Se configuraron las anotaciones `@Test`, `@BeforeEach`, `@AfterEach` en los test.  
+✔️ Se desarrollaron **pruebas unitarias básicas**:
+1. Validación de creación de usuario.
+2. Validación de error en caso de datos inválidos.
 
-## Uso
+Las pruebas se ejecutan con:
 
-1. Obtener una envio por ID:
-Realiza una solicitud GET a la siguiente URL para obtener los detalles de un envio usando su ID:
+```bash
+mvn clean install -DskipTests
+```
 
-GET http://localhost:8080/envios/{nseguimiento}
+## Cómo ejecutar en Docker Lab
 
-Ejemplo:
+1. Entrar a Play With Docker
+- Ir a  https://labs.play-with-docker.com/
+- Iniciar sesión con cuenta de Docker Hub
+- Crear una instancia
 
-GET http://localhost:8080/envios/1
+2. Clonar el repositorio desde GitHub
 
-3. Obtener todas las envíos:
-Realiza una solicitud GET a la siguiente URL para obtener la lista de todos las envios registrados en la base de datos:
+En la terminal de la instancia:
 
-GET http://localhost:8080/envios
+```bash
+git clone https://github.com/KrhisnaO/EXP3_S8_GESTIONENVIOS.git
+ls
+cd EXP3_S8_GESTIONENVIOS
+```
 
-5. Crear un nuevo envio
+3. Construir y levantar los contenedores
 
-POST http://localhost:8080/envios
+Ejecuta:
 
-8. Actualizar un envio existente:
+```bash
+docker-compose up
+```
 
-PUT http://localhost:8080/envios/{nseguimiento}
+Esto descargará las imágenes necesarias, construirá la aplicación y levantará los servicios.
 
-Ejemplo:
+🔗 Al finalizar, Docker Lab te mostrará una URL pública (parecida a http://ip172-18-0-...direct.labs.play-with-docker.com:8080).
 
-PUT http://localhost:8080/envios/1
+👉 IMPORTANTE: añade /envios al final de esa URL para acceder al endpoint inicial.
 
-10. Eliminar un envio:
-    
-DELETE http://localhost:8080/envios/{nseguimiento}
+4. Probar en Postman
 
-Ejemplo:
+- Copia la URL pública generada
+- Abre Postman
+- Usa la URL para probar los endpoints GET, POST, PUT, DELETE.
 
-DELETE http://localhost:8080/envios/1
+Ejemplo (GET todos los envíos):
+
+GET http://ip172-18-0-...direct.labs.play-with-docker.com:8080/envios
+
